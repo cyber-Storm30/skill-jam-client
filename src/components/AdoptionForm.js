@@ -40,7 +40,7 @@ const AdoptionForm = ({open, setOpen, data}) => {
   const [loading, setLoading] = useState(false);
 
   const handleNavigation = () => {
-    setOpen(close);
+    setOpen(false);
   };
   const handleSubmitApplication = async () => {
     if (
@@ -84,7 +84,7 @@ const AdoptionForm = ({open, setOpen, data}) => {
           otherPetsAge,
           otherPetsBreed,
         });
-        console.log('res', res);
+        console.log(res);
         if (res.statusCode === 200) {
           Alert.alert('Succesfull', 'Adoption request is sent successfully', [
             {

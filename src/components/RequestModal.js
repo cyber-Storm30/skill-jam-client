@@ -18,6 +18,8 @@ const RequestModal = ({open, setOpen, data, navigation}) => {
   const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  console.log('form', data);
+
   const handleAcceptRequest = async () => {
     setLoading(true);
     try {

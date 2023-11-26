@@ -6,6 +6,8 @@ import {postData} from '../services/rootService';
 const SentRequestCard = ({data, navigation}) => {
   const {width, height} = useWindowDimensions();
   const [loading, setLoading] = useState(false);
+
+  console.log('sent request', data);
   const handleDeleteRequest = async () => {
     setLoading(true);
     try {
@@ -59,7 +61,7 @@ const SentRequestCard = ({data, navigation}) => {
             fontWeight: '500',
             marginBottom: 5,
           }}>
-          Owner : <Text style={{color: 'black'}}>{data?.name}</Text>
+          Owner : <Text style={{color: 'black'}}>{data?.receiver?.name}</Text>
         </Text>
         {data?.requestStatus === 'ACCEPTED' && (
           <Text
