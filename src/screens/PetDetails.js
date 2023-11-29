@@ -27,7 +27,7 @@ import {postData} from '../services/rootService';
 const PetDetails = ({navigation, route}) => {
   const {data} = route?.params;
   const [open, setOpen] = useState(false);
-  const [isReqSent, setIsReqSent] = useState(false);
+  const [isReqSent, setIsReqSent] = useState('');
   const userDetails = useSelector(state => state.auth.userDetails);
   const {width, height} = useWindowDimensions();
 
@@ -39,7 +39,9 @@ const PetDetails = ({navigation, route}) => {
       });
       console.log('res', res);
       if (res.statusCode === 200) {
-        setIsReqSent(true);
+        setIsReqSent('PENDING');
+      } else if (res.statusCode === 201) {
+        setIsReqSent('ACCEPTED');
       } else {
         setIsReqSent(false);
       }
@@ -282,7 +284,7 @@ const PetDetails = ({navigation, route}) => {
             />
           ) : (
             <>
-              {isReqSent ? (
+              {isReqSent === 'PENDING' ? (
                 <ButtonPrimary
                   onPress={() => {
                     navigation.navigate('SentRequests');
