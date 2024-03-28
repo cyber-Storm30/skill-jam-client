@@ -31,7 +31,7 @@ const Topbar = ({navigation, title}) => {
         <Image source={Menu} style={{width: 20, height: 25}} />
       </TouchableOpacity>
 
-      <Text style={{fontSize: 16, color: '#1eabac'}}>{title}</Text>
+      <Text style={{fontSize: 16, color: '#50C4ED'}}>{title}</Text>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate('Profile');

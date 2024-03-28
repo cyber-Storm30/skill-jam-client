@@ -41,7 +41,7 @@ const Drawer = ({open, setOpen, navigation}) => {
           height: height,
           position: 'absolute',
           zIndex: 1000,
-          backgroundColor: '#215b5b',
+          backgroundColor: '#50C4ED',
           top: 0,
           paddingTop: 20,
           paddingLeft: 20,
@@ -59,7 +59,7 @@ const Drawer = ({open, setOpen, navigation}) => {
           source={Account}
           style={{width: 50, height: 50, borderRadius: 30}}
         />
-        <Text style={{color: 'white', fontSize: 16, marginTop: 10}}>
+        <Text style={{color: '#ffffff', fontSize: 16, marginTop: 10}}>
           {userDetails?.name}
         </Text>
         <View style={{marginTop: 50}}>
@@ -77,7 +77,7 @@ const Drawer = ({open, setOpen, navigation}) => {
               source={PawIcon}
               style={{width: 20, height: 20, marginRight: 5}}
             />
-            <Text style={{fontSize: 18, color: '#cdcdcc'}}>Adoption</Text>
+            <Text style={{fontSize: 18, color: '#ffffff'}}>Adoption</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -93,7 +93,7 @@ const Drawer = ({open, setOpen, navigation}) => {
               source={Health}
               style={{width: 20, height: 20, marginRight: 5}}
             />
-            <Text style={{fontSize: 18, color: '#cdcdcc'}}>Animal health</Text>
+            <Text style={{fontSize: 18, color: '#ffffff'}}>Animal health</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -109,7 +109,7 @@ const Drawer = ({open, setOpen, navigation}) => {
               source={AddIcon}
               style={{width: 20, height: 20, marginRight: 5}}
             />
-            <Text style={{fontSize: 18, color: '#cdcdcc'}}>Add pet</Text>
+            <Text style={{fontSize: 18, color: '#ffffff'}}>Add pet</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -124,7 +124,7 @@ const Drawer = ({open, setOpen, navigation}) => {
               source={Pet}
               style={{width: 20, height: 20, marginRight: 5}}
             />
-            <Text style={{fontSize: 18, color: '#cdcdcc'}}>Your pets</Text>
+            <Text style={{fontSize: 18, color: '#ffffff'}}>Your pets</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -140,7 +140,7 @@ const Drawer = ({open, setOpen, navigation}) => {
               source={Insurance}
               style={{width: 20, height: 20, marginRight: 5}}
             />
-            <Text style={{fontSize: 18, color: '#cdcdcc'}}>
+            <Text style={{fontSize: 18, color: '#ffffff'}}>
               Animal Insurance
             </Text>
           </TouchableOpacity>
@@ -158,7 +158,7 @@ const Drawer = ({open, setOpen, navigation}) => {
               source={Star}
               style={{width: 20, height: 20, marginRight: 5}}
             />
-            <Text style={{fontSize: 18, color: '#cdcdcc'}}>Reviews</Text>
+            <Text style={{fontSize: 18, color: '#ffffff'}}>Reviews</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {

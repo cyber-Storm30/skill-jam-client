@@ -132,7 +132,7 @@ const Login = ({navigation}) => {
             }}>
             <CustomText
               title="Welcome Back"
-              color="#1eabac"
+              color="#50C4ED"
               fontSize={24}
               fontWeight={600}
             />
@@ -221,7 +221,7 @@ const Login = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 13,
-                  color: '#1eabac',
+                  color: '#50C4ED',
                   fontWeight: '600',
                   fontFamily: 'Montserrat-Medium',
                 }}>

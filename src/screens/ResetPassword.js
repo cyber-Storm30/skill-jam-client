@@ -98,7 +98,7 @@ const ResetPassword = ({navigation, route}) => {
             }}>
             <CustomText
               title="Reset your password"
-              color="#1eabac"
+              color="#50C4ED"
               fontSize={24}
               fontWeight={600}
             />

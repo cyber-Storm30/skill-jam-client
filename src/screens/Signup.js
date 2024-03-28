@@ -128,7 +128,7 @@ const Signup = ({navigation}) => {
             }}>
             <CustomText
               title="Create your accout"
-              color="#1eabac"
+              color="#50C4ED"
               fontSize={24}
               fontWeight={600}
             />
@@ -203,7 +203,7 @@ const Signup = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 13,
-                  color: '#1eabac',
+                  color: '#50C4ED',
                   fontWeight: '600',
                   fontFamily: 'Montserrat-Medium',
                 }}>

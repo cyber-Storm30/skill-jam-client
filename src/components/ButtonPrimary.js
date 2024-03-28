@@ -41,7 +41,7 @@ const ButtonPrimary = ({
                 height: customHeight ? customHeight : 52,
                 borderRadius: borderRadius ? borderRadius : 12,
                 border: 'none',
-                backgroundColor: '#1eabac',
+                backgroundColor: '#50C4ED',
                 borderWidth: 1,
                 borderColor: '#262626',
               }}>
@@ -66,7 +66,7 @@ const ButtonPrimary = ({
                     )}
                   </View>
                 ) : (
-                  <ActivityIndicator size="small" color="#FAFAFA " />
+                  <ActivityIndicator size="small" color="#fffff" />
                 )}
               </Text>
             </View>
@@ -110,7 +110,7 @@ const ButtonPrimary = ({
                   border: 'none',
                   backgroundColor: backgroundColor
                     ? backgroundColor
-                    : '#1eabac',
+                    : '#50C4ED',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
@@ -126,7 +126,7 @@ const ButtonPrimary = ({
                     </Text>
                   </View>
                 ) : (
-                  <ActivityIndicator size="small" color="#FAFAFA " />
+                  <ActivityIndicator size="small" color="#ffffff" />
                 )}
               </View>
             </TouchableOpacity>

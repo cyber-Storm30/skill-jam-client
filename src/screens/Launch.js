@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import React from 'react';
-import Cover from '../../assets/cover.png';
+import Cover from '../../assets/cover.jpg';
 import ButtonPrimary from '../components/ButtonPrimary';
 
 const Launch = ({navigation}) => {
@@ -33,8 +33,10 @@ const Launch = ({navigation}) => {
           fontSize: 24,
           fontWeight: '500',
           color: '#000',
+          paddingHorizontal: 20,
         }}>
-        Find Your <Text style={{color: '#05dac4'}}>New Friends </Text>Here
+        Unlock Your <Text style={{color: '#50C4ED'}}>Potential </Text> Connect
+        with Experts
       </Text>
       <View
         style={{
@@ -46,7 +48,7 @@ const Launch = ({navigation}) => {
           // opacity: 0.7,
         }}>
         <Text style={{textAlign: 'center', width: '52%'}}>
-          Join us and discover the best pet in your location
+          Dive into endless possibilities with Skill Jam Connect.
         </Text>
       </View>
 
@@ -54,7 +56,7 @@ const Launch = ({navigation}) => {
         <ButtonPrimary
           title="Get Started"
           disabled={false}
-          backgroundColor="#1eabac"
+          backgroundColor="#50C4ED"
           onPress={handleNavigation}
         />
       </View>

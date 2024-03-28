@@ -115,7 +115,7 @@ const Input = props => {
             }}>
             {inputProps.heading}
           </Text>
-          {inputProps.required && <Text style={{color: '#1eabac'}}>*</Text>}
+          {inputProps.required && <Text style={{color: '#50C4ED'}}>*</Text>}
         </View>
       )}
       <View
@@ -134,7 +134,7 @@ const Input = props => {
           paddingRight: 10,
           marginTop: 8,
           borderWidth: 1,
-          borderColor: error ? 'red' : focused ? '#1eabac' : '##1eabac20',
+          borderColor: error ? 'red' : '#141414',
         }}>
         <TextInput
           name={name}

@@ -95,7 +95,7 @@ const ForgotPassword = ({navigation}) => {
             }}>
             <CustomText
               title="Forgot Password"
-              color="#1eabac"
+              color="#50C4ED"
               fontSize={24}
               fontWeight={600}
             />
