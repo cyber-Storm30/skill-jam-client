@@ -153,7 +153,7 @@ const Onboarding = ({navigation, route}) => {
                 paddingHorizontal: 20,
               }}>
               <CustomText
-                title="Enter basic details"
+                title="Edit your profile"
                 color="#50C4ED"
                 fontSize={24}
                 fontWeight={600}
@@ -274,7 +274,6 @@ const Onboarding = ({navigation, route}) => {
             <ButtonPrimary
               title="Submit"
               onPress={handleSubmit}
-              f
               disabled={disabled}
               loading={loading}
             />

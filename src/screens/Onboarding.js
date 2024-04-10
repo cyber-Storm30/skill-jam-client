@@ -9,14 +9,17 @@ import {
   Alert,
   TextInput,
   KeyboardAvoidingView,
+  Image,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomText from '../components/CustomText';
+import ImagePicker from 'react-native-image-crop-picker';
 import ButtonPrimary from '../components/ButtonPrimary';
 import Input from '../components/Input';
-import {postData} from '../services/rootService';
+import {BASE_URI, postData} from '../services/rootService';
 import {setUserDetails} from '../redux/auth';
+import ProfileButton from '../../assets/uploadIcon.png';
 import {useDispatch} from 'react-redux';
 // import EyeOpen from '../../../assets/eyeopen.svg';
 // import EyeClose from '../../../assets/eyeclose.svg';
@@ -49,11 +52,12 @@ const Onboarding = ({navigation, route}) => {
 
   const [name, setName] = useState('');
   const [mobile, setMobile] = useState('');
-  const [address, setAddress] = useState('');
+
   const [collage, setCollage] = useState('');
   const [job, setJob] = useState('');
   const [hobby, setHobby] = useState('');
   const [hobbies, setHobbies] = useState([]);
+  const [image, setImage] = useState('');
 
   const dispatch = useDispatch();
 
@@ -80,46 +84,77 @@ const Onboarding = ({navigation, route}) => {
     setHobbies(newData);
   };
 
-  const handleSubmit = async () => {
-    let data;
+  const openGallery = () => {
     try {
-      setLoading(true);
-      data = await postData('/user/save/form', {
-        userId: route?.params?.userId,
-        name,
-        mobile,
-        hobbies,
-        job,
-        collage,
+      ImagePicker.openPicker({
+        width: 150,
+        height: 188,
+        cropping: true,
+      }).then(img => {
+        setImage(img);
       });
-      if (data?.statusCode === 200) {
-        dispatch(setUserDetails(data));
-        navigation.navigate('Home');
-      } else {
-        Alert.alert('Something went wrong,try again later');
-      }
     } catch (err) {
-      Alert.alert('Network error,try again later');
       console.log(err);
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    console.log(image);
+    const pathArray = image.path.split('/').slice(-1);
+    const imgName = pathArray[0];
+    const formData = new FormData();
+    formData.append('file', {
+      uri: image.path,
+      type: image.mime,
+      name: imgName,
+    });
+    const URL = `${BASE_URI}/upload`;
+    const res = await fetch(URL, {
+      method: 'post',
+      body: formData,
+    });
+    if (res.status === 200) {
+      let data;
+      try {
+        setLoading(true);
+        data = await postData('/user/save/form', {
+          userId: route?.params?.userId,
+          name,
+          mobile,
+          hobbies,
+          job,
+          image: imgName,
+          collage,
+        });
+        if (data?.statusCode === 200) {
+          dispatch(setUserDetails(data));
+          navigation.navigate('Home');
+        } else {
+          Alert.alert('Something went wrong,try again later');
+        }
+      } catch (err) {
+        Alert.alert('Network error,try again later');
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <TouchableWithoutFeedback
-        touchSoundDisabled
-        onPress={() => {
-          Keyboard.dismiss();
-        }}>
+    <TouchableWithoutFeedback
+      touchSoundDisabled
+      onPress={() => {
+        Keyboard.dismiss();
+      }}>
+      <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
         <KeyboardAvoidingView
           style={{flex: 1}}
           behavior={Platform.OS === 'ios' ? 'padding' : null}>
           <ScrollView
             style={{
-              flex: 1,
-              paddingTop: 30,
+              height: height + 100,
             }}
             contentContainerStyle={{
               alignItems: 'center',
@@ -137,6 +172,34 @@ const Onboarding = ({navigation, route}) => {
                 fontWeight={600}
                 marginBottom={30}
               />
+            </View>
+            <View style={{alignItems: 'center', marginBottom: 20}}>
+              {image ? (
+                <View>
+                  <Image
+                    source={{uri: image.path}}
+                    style={{width: 100, height: 100, borderRadius: 50}}
+                  />
+                  <TouchableOpacity onPress={openGallery}>
+                    <CustomText
+                      title="Change"
+                      color="#50C4ED"
+                      fontSize={14}
+                      fontFamily="Montserrat-Medium"
+                      fontWeight={400}
+                      textAlign="center"
+                      marginTop={7}
+                    />
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <TouchableOpacity onPress={openGallery}>
+                  <Image
+                    source={ProfileButton}
+                    style={{width: 80, height: 80}}
+                  />
+                </TouchableOpacity>
+              )}
             </View>
             <View style={{marginBottom: 20}}>
               <Input
@@ -252,15 +315,14 @@ const Onboarding = ({navigation, route}) => {
             <ButtonPrimary
               title="Submit"
               onPress={handleSubmit}
-              f
               disabled={disabled}
               loading={loading}
             />
           </ScrollView>
         </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-      {/* <Toast config={toastConfig} visibilityTime={1600} /> */}
-    </SafeAreaView>
+        {/* <Toast config={toastConfig} visibilityTime={1600} /> */}
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 

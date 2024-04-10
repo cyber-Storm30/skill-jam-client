@@ -15,7 +15,8 @@ import Delete from '../../assets/delete.png';
 import ButtonPrimary from '../components/ButtonPrimary';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../redux/auth';
-import {postData} from '../services/rootService';
+import {BASE_URI, postData} from '../services/rootService';
+import UserPosts from '../components/UserPosts';
 
 const Profile = ({navigation}) => {
   const {width, height} = useWindowDimensions();
@@ -41,7 +42,7 @@ const Profile = ({navigation}) => {
     }
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <Topbar navigation={navigation} title="Profile" />
       <View style={{width: width, alignItems: 'center'}}>
         <TouchableOpacity
@@ -75,10 +76,21 @@ const Profile = ({navigation}) => {
           style={{position: 'absolute', zIndex: 111, right: 20}}>
           <Image source={Delete} style={{width: 20, height: 20}} />
         </TouchableOpacity>
-        <Image
-          source={Account}
-          style={{width: 90, height: 90, borderRadius: 30}}
-        />
+        {userDetails?.image.length <= 0 ? (
+          <Image
+            source={Account}
+            style={{width: 100, height: 100, borderRadius: 50}}
+          />
+        ) : (
+          <Image
+            source={{uri: `${BASE_URI}/files/${userDetails.image}`}}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+            }}
+          />
+        )}
         <Text
           style={{
             textAlign: 'center',
@@ -94,31 +106,17 @@ const Profile = ({navigation}) => {
             textAlign: 'center',
             fontSize: 14,
             fontWeight: '500',
+            color: '#141414',
           }}>
-          Software developer
+          {userDetails.job}
         </Text>
-        <View
-          style={{flexDirection: 'row', paddingHorizontal: 20, marginTop: 30}}>
-          <View style={{marginRight: 10}}>
-            <ButtonPrimary
-              customWidth={width / 2.5}
-              title="Sent requests"
-              onPress={() => {
-                navigation.navigate('SentRequests');
-              }}
-            />
-          </View>
-          <View style={{marginLeft: 10}}>
-            <ButtonPrimary
-              onPress={() => {
-                navigation.navigate('ReceivedRequests');
-              }}
-              customWidth={width / 2.5}
-              title="Received requests"
-            />
-          </View>
-        </View>
       </View>
+      <View style={{paddingHorizontal: 20, paddingTop: 20}}>
+        <Text style={{fontSize: 16, fontWeight: 500, color: '#141414'}}>
+          Your Posts
+        </Text>
+      </View>
+      <UserPosts navigation={navigation} />
     </SafeAreaView>
   );
 };

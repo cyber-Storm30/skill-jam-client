@@ -9,9 +9,12 @@ import React, {useState} from 'react';
 import Account from '../../assets/account.png';
 import Menu from '../../assets/menu.png';
 import Drawer from '../components/Drawer.js';
+import {useSelector} from 'react-redux';
+import {BASE_URI} from '../services/rootService';
 
 const Topbar = ({navigation, title}) => {
   const {width} = useWindowDimensions();
+  const userDetails = useSelector(state => state.auth.userDetails);
   const [open, setOpen] = useState(false);
   const toogleDrawer = () => {
     setOpen(!open);
@@ -36,10 +39,21 @@ const Topbar = ({navigation, title}) => {
         onPress={() => {
           navigation.navigate('Profile');
         }}>
-        <Image
-          source={Account}
-          style={{width: 30, height: 30, borderRadius: 50}}
-        />
+        {userDetails?.image?.length <= 0 ? (
+          <Image
+            source={Account}
+            style={{width: 50, height: 50, borderRadius: 30}}
+          />
+        ) : (
+          <Image
+            source={{uri: `${BASE_URI}/files/${userDetails.image}`}}
+            style={{
+              width: 45,
+              height: 45,
+              borderRadius: 30,
+            }}
+          />
+        )}
       </TouchableOpacity>
     </View>
   );

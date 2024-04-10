@@ -10,10 +10,8 @@ import {
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import Topbar from '../components/Topbar';
-import HelathCard from '../components/HelathCard';
 import {getData, postData} from '../services/rootService';
 import {useFocusEffect} from '@react-navigation/native';
-import InsuranceCard from '../components/InsuranceCard';
 import ReviewCard from '../components/ReviewCard';
 import Input from '../components/Input';
 import Arrow from '../../assets/send.png';

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "903604302195",
+    "project_id": "skill-jam-connect",
+    "storage_bucket": "skill-jam-connect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903604302195:android:052e94f260cc1cc2565506",
+        "android_client_info": {
+          "package_name": "com.skilljamconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdXXLDze-xb76F-XPLMO6WA2WO8jpErE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
