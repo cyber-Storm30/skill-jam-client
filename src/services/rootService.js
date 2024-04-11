@@ -1,9 +1,7 @@
 import axios from 'axios';
-import {Image} from 'react-native';
-``;
 
-export const BASE_URI = 'http://192.168.1.2:5001/api';
-// export const BASE_URI = 'http://192.168.29.31:9001/api';
+export const BASE_URI = 'http://192.168.1.2:9001/api';
+// export const BASE_URI = 'http://192.168.29.33:9001/api';
 // export const BASE_URI = 'http://172.20.10.4:5001/api';
 
 export const postData = async (url, requestData = null, token) => {

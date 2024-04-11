@@ -16,8 +16,8 @@ import {postData} from '../services/rootService';
 import {useDispatch} from 'react-redux';
 import {setUser, setUserDetails} from '../redux/auth';
 import {set} from 'immer/dist/internal';
-// import EyeOpen from '../../../assets/eyeopen.svg';
-// import EyeClose from '../../../assets/eyeclose.svg';
+import EyeOpen from '../../assets/eyeopen.svg';
+import EyeClose from '../../assets/eyeclose.svg';
 
 const toastConfig = {
   error: props => (
@@ -49,6 +49,10 @@ const ResetPassword = ({navigation, route}) => {
   const [disabled, setDisabled] = useState(false);
 
   const [loading, setLoading] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (password && confirmPassword) {
@@ -121,8 +125,10 @@ const ResetPassword = ({navigation, route}) => {
               }}
               name="password"
               value={password}
-              secureTextEntry={true}
+              secureTextEntry={!showPassword}
+              setShowPassword={setShowPassword}
               backgroundColor="transparent"
+              icon={!showPassword ? <EyeClose /> : <EyeOpen />}
               required
             />
           </View>
@@ -134,9 +140,11 @@ const ResetPassword = ({navigation, route}) => {
                 setConfirmPassword(val);
               }}
               name="password"
-              secureTextEntry={true}
               value={confirmPassword}
+              secureTextEntry={!showConfirmPassword}
+              setShowPassword={setShowConfirmPassword}
               backgroundColor="transparent"
+              icon={!showConfirmPassword ? <EyeClose /> : <EyeOpen />}
               required
             />
           </View>

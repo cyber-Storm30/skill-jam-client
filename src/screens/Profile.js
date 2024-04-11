@@ -76,7 +76,7 @@ const Profile = ({navigation}) => {
           style={{position: 'absolute', zIndex: 111, right: 20}}>
           <Image source={Delete} style={{width: 20, height: 20}} />
         </TouchableOpacity>
-        {userDetails?.image.length <= 0 ? (
+        {userDetails?.image?.length <= 0 ? (
           <Image
             source={Account}
             style={{width: 100, height: 100, borderRadius: 50}}
@@ -98,6 +98,7 @@ const Profile = ({navigation}) => {
             fontWeight: '500',
             color: '#000',
             marginTop: 10,
+            marginBottom: 5,
           }}>
           {userDetails?.name}
         </Text>
@@ -107,9 +108,44 @@ const Profile = ({navigation}) => {
             fontSize: 14,
             fontWeight: '500',
             color: '#141414',
+            marginBottom: 5,
           }}>
-          {userDetails.job}
+          Job - {userDetails.job}
         </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 14,
+            fontWeight: '500',
+            color: '#141414',
+            marginBottom: 5,
+          }}>
+          College - {userDetails.collage}
+        </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 14,
+            fontWeight: '500',
+            color: '#141414',
+            marginBottom: 5,
+          }}>
+          Hobbies
+        </Text>
+        <View style={{flexDirection: 'row'}}>
+          {userDetails?.hobbies?.map((d, idx) => (
+            <Text
+              style={{
+                textAlign: 'center',
+                fontSize: 14,
+                fontWeight: '500',
+                color: '#141414',
+                marginRight: 5,
+              }}>
+              {d}
+            </Text>
+          ))}
+        </View>
       </View>
       <View style={{paddingHorizontal: 20, paddingTop: 20}}>
         <Text style={{fontSize: 16, fontWeight: 500, color: '#141414'}}>

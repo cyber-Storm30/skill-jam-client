@@ -1,9 +1,11 @@
 import {View, Text, useWindowDimensions, Image} from 'react-native';
 import React from 'react';
 import AccountImage from '../../assets/account.png';
+import {BASE_URI} from '../services/rootService';
 
 const ReviewCard = ({data}) => {
   const {width} = useWindowDimensions();
+  console.log(data);
   return (
     <View
       style={{
@@ -17,8 +19,8 @@ const ReviewCard = ({data}) => {
         borderBottomWidth: 1,
       }}>
       <Image
-        source={AccountImage}
-        style={{width: 25, height: 25, marginRight: 10}}
+        source={{uri: `${BASE_URI}/files/${data?.userId.image}`}}
+        style={{width: 40, height: 40, marginRight: 10, borderRadius: 50}}
       />
       <View>
         <Text

@@ -26,6 +26,70 @@ const Home = ({navigation}) => {
   const [posts, setPosts] = useState([]);
   const [counter, setCounter] = useState();
   const [modalVisible, setModalVisible] = useState(false);
+  const [filterData, setFilterData] = useState([]);
+
+  const items = [
+    {
+      id: 1,
+      name: 'Technology & Innovation',
+      isSelected: false,
+    },
+    {
+      id: 2,
+      name: 'Creative Arts',
+      isSelected: false,
+    },
+    {
+      id: 3,
+      name: 'Personal Development',
+      isSelected: false,
+    },
+    {
+      id: 4,
+      name: 'Fitness & Wellness',
+      isSelected: false,
+    },
+    {
+      id: 5,
+      name: 'Entrepreneurship & Business',
+      isSelected: false,
+    },
+    {
+      id: 6,
+      name: 'Academic Support',
+      isSelected: false,
+    },
+    {
+      id: 7,
+      name: 'Career Development',
+      isSelected: false,
+    },
+    {
+      id: 8,
+      name: 'Lifestyle & Hobbies',
+      isSelected: false,
+    },
+    {
+      id: 9,
+      name: 'Health & Nutrition',
+      isSelected: false,
+    },
+    {
+      id: 10,
+      name: 'Environment & Sustainability',
+      isSelected: false,
+    },
+    {
+      id: 11,
+      name: 'Language Learning',
+      isSelected: false,
+    },
+    {
+      id: 12,
+      name: 'Travel & Adventure',
+      isSelected: false,
+    },
+  ];
 
   const getAllPosts = async () => {
     try {
@@ -63,6 +127,9 @@ const Home = ({navigation}) => {
             open={modalVisible}
             setOpen={setModalVisible}
             setPosts={setPosts}
+            items={items}
+            filterData={filterData}
+            setFilterData={setFilterData}
           />
         </View>
       </Modal>

@@ -63,7 +63,7 @@ const CommentSection = ({id, width, height}) => {
         Comments
       </Text>
       <ScrollView style={{height: '80%', paddingHorizontal: 20}}>
-        {comments.length > 0 ? (
+        {comments?.length > 0 ? (
           <>
             {comments?.map((data, idx) => (
               <View
@@ -73,24 +73,36 @@ const CommentSection = ({id, width, height}) => {
                   marginBottom: 20,
                 }}
                 key={idx}>
-                {data?.userId?.image.length <= 0 ? (
+                {data?.userId ? (
+                  <>
+                    {data?.userId?.image.length <= 0 ? (
+                      <Image
+                        source={Account}
+                        style={{width: 30, height: 30, borderRadius: 30}}
+                      />
+                    ) : (
+                      <Image
+                        source={{
+                          uri: `${BASE_URI}/files/${data?.userId.image}`,
+                        }}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          borderRadius: 30,
+                        }}
+                      />
+                    )}
+                  </>
+                ) : (
                   <Image
                     source={Account}
                     style={{width: 30, height: 30, borderRadius: 30}}
                   />
-                ) : (
-                  <Image
-                    source={{uri: `${BASE_URI}/files/${data?.userId.image}`}}
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 30,
-                    }}
-                  />
                 )}
+
                 <View style={{marginLeft: 5}}>
                   <Text style={{fontSize: 14, color: 'black', fontWeight: 500}}>
-                    {data?.userId.name}
+                    {data?.userId !== null ? data?.userId.name : 'Unknown User'}
                     {'  '}
                     <Text style={{color: 'gray', fontSize: 10}}>
                       {moment(data?.createdAt).fromNow()}

@@ -15,8 +15,8 @@ import Input from '../components/Input';
 import {postData} from '../services/rootService';
 import {useDispatch} from 'react-redux';
 import {setUser, setUserDetails} from '../redux/auth';
-// import EyeOpen from '../../../assets/eyeopen.svg';
-// import EyeClose from '../../../assets/eyeclose.svg';
+import EyeOpen from '../../assets/eyeopen.svg';
+import EyeClose from '../../assets/eyeclose.svg';
 
 const toastConfig = {
   error: props => (

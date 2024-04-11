@@ -16,75 +16,25 @@ import {BASE_URI, getData, postData} from '../services/rootService';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
 
-const items = [
-  {
-    id: 1,
-    name: 'Technology & Innovation',
-    isSelected: false,
-  },
-  {
-    id: 2,
-    name: 'Creative Arts',
-    isSelected: false,
-  },
-  {
-    id: 3,
-    name: 'Personal Development',
-    isSelected: false,
-  },
-  {
-    id: 4,
-    name: 'Fitness & Wellness',
-    isSelected: false,
-  },
-  {
-    id: 5,
-    name: 'Entrepreneurship & Business',
-    isSelected: false,
-  },
-  {
-    id: 6,
-    name: 'Academic Support',
-    isSelected: false,
-  },
-  {
-    id: 7,
-    name: 'Career Development',
-    isSelected: false,
-  },
-  {
-    id: 8,
-    name: 'Lifestyle & Hobbies',
-    isSelected: false,
-  },
-  {
-    id: 9,
-    name: 'Health & Nutrition',
-    isSelected: false,
-  },
-  {
-    id: 10,
-    name: 'Environment & Sustainability',
-    isSelected: false,
-  },
-  {
-    id: 11,
-    name: 'Language Learning',
-    isSelected: false,
-  },
-  {
-    id: 12,
-    name: 'Travel & Adventure',
-    isSelected: false,
-  },
-];
-
-const Filter = ({open, setOpen, setPosts}) => {
+const Filter = ({
+  open,
+  setOpen,
+  setPosts,
+  items,
+  setFilterData,
+  filterData,
+}) => {
   const {width, height} = useWindowDimensions();
-  const [categories, setCategories] = useState(items);
+  const [categories, setCategories] = useState(
+    filterData?.length > 0 ? filterData : items,
+  );
   const [disabled, setDisabled] = useState(true);
   const userDetails = useSelector(state => state.auth.userDetails);
   const [loading, setLoading] = useState(false);
+
+  console.log('1', categories);
+  console.log('2', filterData);
+  console.log('3', items);
 
   const handleSelectCategory = data => {
     const newList = categories?.map((item, idx) => {
@@ -95,18 +45,16 @@ const Filter = ({open, setOpen, setPosts}) => {
       }
     });
     setCategories(newList);
+    setFilterData(newList);
   };
 
   const handleSubmit = async () => {
-    const selectedCategories = categories.filter(
-      item => item.isSelected === true,
-    );
-    console.log(selectedCategories);
     try {
       const res = await postData('/post/filter', {
-        categories: selectedCategories,
+        categories: categories,
       });
       if (res.statusCode === 200) {
+        setFilterData(categories);
         setPosts(res.data);
         setOpen(false);
       }

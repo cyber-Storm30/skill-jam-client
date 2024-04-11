@@ -102,6 +102,8 @@ const AddCategories = ({navigation, route}) => {
   const handleSubmit = async () => {
     const {image, imageName, video, videoName, pdfLink, pdfName, body} =
       route.params;
+
+    console.log(route.params);
     if (route.params.isEdit) {
       // console.log(route.params);
       // const newImage = route.params.image.split('files/')[1];
@@ -181,7 +183,7 @@ const AddCategories = ({navigation, route}) => {
               const res = await axios.post(`${BASE_URI}/post`, {
                 userId: userDetails._id,
                 body,
-                categories: selectedCategories,
+                categories: categories,
                 video: newName,
               });
               console.log(res);
@@ -222,7 +224,7 @@ const AddCategories = ({navigation, route}) => {
               const res = await axios.post(`${BASE_URI}/post`, {
                 userId: userDetails._id,
                 body,
-                categories: selectedCategories,
+                categories: categories,
                 pdfLink: newName,
               });
               console.log('Post done', res);

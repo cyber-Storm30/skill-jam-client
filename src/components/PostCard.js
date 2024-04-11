@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import Account from '../../assets/account.png';
-import {BASE_URI} from '../services/rootService';
+import {BASE_URI, getData} from '../services/rootService';
 import VideoPlayer from 'react-native-video-player';
 import LikeIcon from '../../assets/like.png';
 import LikedIcon from '../../assets/liked.png';
@@ -22,6 +22,8 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import CommentSection from './CommentSection';
+import Pdf from 'react-native-pdf';
+import ViewPdf from './ViewPdf';
 
 const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
   const {width, height} = useWindowDimensions();
@@ -31,6 +33,9 @@ const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
     data?.likes?.includes(userDetails?._id),
   );
   const [likeCount, setLikeCount] = useState(0);
+  const [viewPdf, setViewPdf] = useState(false);
+
+  console.log('Post card', data);
 
   useEffect(() => {
     const userHasLiked = data?.likes?.includes(userDetails?._id);
@@ -76,6 +81,10 @@ const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
     }
   };
 
+  const handleViewPdf = () => {
+    setViewPdf(true);
+  };
+
   return (
     <View
       style={{
@@ -87,6 +96,9 @@ const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
         backgroundColor: 'white',
         paddingBottom: 20,
       }}>
+      {viewPdf && (
+        <ViewPdf open={viewPdf} pdfLink={data?.pdfLink} setOpen={setViewPdf} />
+      )}
       <RBSheet
         height={height - 200}
         ref={refRBSheet}
@@ -189,7 +201,7 @@ const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
         {data?.video && (
           <VideoPlayer
             video={{
-              uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+              uri: `${BASE_URI}/files/${data?.video}`,
             }}
             videoWidth={1600}
             videoHeight={900}
@@ -234,7 +246,8 @@ const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'row',
-            }}>
+            }}
+            onPress={handleViewPdf}>
             <Image
               source={LinkIcon}
               style={{width: 20, height: 20, marginRight: 3}}
@@ -264,7 +277,9 @@ const PostCard = ({data, showIcon, setPosts, posts, navigation}) => {
             onPress={() => refRBSheet.current.open()}
             style={{flexDirection: 'row', alignItems: 'flex-end'}}>
             <Image source={CommentIcon} style={{width: 25, height: 25}} />
-            <Text style={{color: 'black', marginLeft: 5}}>0</Text>
+            <Text style={{color: 'black', marginLeft: 5}}>
+              {data?.comments?.length}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'flex-end'}}>

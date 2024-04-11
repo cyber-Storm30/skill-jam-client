@@ -23,14 +23,13 @@ import BackButton from '../../assets/back.png';
 import DocumentPicker from 'react-native-document-picker';
 import Textarea from 'react-native-textarea';
 import {BASE_URI} from '../services/rootService';
+import Pdf from 'react-native-pdf';
 
 const PostForm = ({navigation, route}) => {
   var data;
   if (route.params) {
     data = route?.params.data;
   }
-
-  console.log(data);
 
   const {width, height} = useWindowDimensions();
   const [disabled, setDisabled] = useState(false);
@@ -40,10 +39,16 @@ const PostForm = ({navigation, route}) => {
     data?.image.length > 0 ? `${BASE_URI}/files/${data?.image}` : '',
   );
   const [imageName, setImageName] = useState('');
-  const [video, setVideo] = useState('');
+  const [video, setVideo] = useState(
+    data?.video.length > 0 ? `${BASE_URI}/files/${data?.video}` : '',
+  );
   const [videoName, setVideoName] = useState('');
-  const [pdfLink, setPdfLink] = useState('');
-  const [pdfName, setPdfName] = useState('');
+  const [pdfLink, setPdfLink] = useState(
+    data?.pdfLink.length > 0 ? `${BASE_URI}/files/${data?.pdfLink}` : '',
+  );
+  const [pdfName, setPdfName] = useState(
+    data?.pdfLink?.length > 0 ? data?.pdfLink : '',
+  );
   const [categories, setCategories] = useState([]);
 
   const items = [
@@ -122,9 +127,9 @@ const PostForm = ({navigation, route}) => {
       pdfLink,
       pdfName,
       body,
-      isEdit: true,
+      isEdit: data ? true : false,
       postId: data?._id,
-      categories: data?.categories,
+      categories: data?.categories ? data?.categories : items,
     });
   };
 
@@ -177,114 +182,130 @@ const PostForm = ({navigation, route}) => {
   }, [image, video, pdfLink, body]);
 
   return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          top: 15,
-          left: 10,
-          zIndex: 1000,
-        }}
-        onPress={() => {
-          navigation.navigate('Home');
-        }}>
-        <Image
-          source={BackButton}
+    <KeyboardAvoidingView style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+        <TouchableOpacity
           style={{
-            width: 20,
-            height: 20,
+            position: 'absolute',
+            top: 15,
+            left: 10,
+            zIndex: 1000,
           }}
-        />
-      </TouchableOpacity>
-      <View
-        style={{
-          width: width,
-          paddingTop: 50,
-          paddingHorizontal: 20,
-        }}>
-        <CustomText
-          title={data ? 'Update post' : 'Upload post'}
-          color="#50C4ED"
-          fontSize={24}
-          fontWeight={600}
-          marginBottom={30}
-        />
-      </View>
-      <View
-        style={{
-          flex: 1,
-          paddingHorizontal: 20,
-          width: width,
-          alignItems: 'center',
-        }}>
-        {!data && (
-          <View style={{marginBottom: 20}}>
-            <ButtonPrimary
-              title="Upload video or image or pdf"
-              onPress={handlePicker}
-            />
-          </View>
-        )}
-        {image && (
+          onPress={() => {
+            navigation.navigate('Home');
+          }}>
           <Image
-            source={{uri: image}}
+            source={BackButton}
             style={{
-              width: width - 40,
-              height: 200,
-              marginBottom: 20,
+              width: 20,
+              height: 20,
             }}
           />
-        )}
-        {video && (
-          <VideoPlayer
-            video={{
-              uri: video,
-            }}
-            videoWidth={width}
-            videoHeight={200}
-            thumbnail={{uri: 'https://i.picsum.photos/id/866/1600/900.jpg'}}
-          />
-        )}
-
-        <View style={{marginBottom: 10, width: width - 40, marginTop: 20}}>
-          <Text
-            style={{
-              color: '#000',
-              marginRight: 5,
-              fontFamily: 'Montserrat-Regular',
-              fontSize: 14,
-              marginBottom: 6,
-            }}>
-            Body {<Text style={{color: '#50C4ED'}}>*</Text>}
-          </Text>
-          <TextInput
-            placeholder="Enter your description..."
-            multiline={true}
-            textAlignVertical="top"
-            numberOfLines={10}
-            onChangeText={val => setBody(val)}
-            value={body}
-            placeholderTextColor="gray"
-            backgroundColor="transparent"
-            required
-            style={{
-              color: '#000',
-              fontFamily: 'Montserrat-Regular',
-              backgroundColor: 'transparent',
-              borderRadius: 12,
-              borderWidth: 1,
-              // borderColor: error ? 'red' : focused ? '#50C4ED' : '##50C4ED20',
-            }}
+        </TouchableOpacity>
+        <View
+          style={{
+            width: width,
+            paddingTop: 50,
+            paddingHorizontal: 20,
+          }}>
+          <CustomText
+            title={data ? 'Update post' : 'Upload post'}
+            color="#50C4ED"
+            fontSize={24}
+            fontWeight={600}
+            marginBottom={30}
           />
         </View>
-        <ButtonPrimary
-          title="Next"
-          onPress={handleNext}
-          disabled={disabled}
-          loading={loading}
-        />
-      </View>
-    </View>
+        <View
+          style={{
+            flex: 1,
+            paddingHorizontal: 20,
+            width: width,
+            alignItems: 'center',
+          }}>
+          {!data && (
+            <View style={{marginBottom: 20}}>
+              <ButtonPrimary
+                title="Upload video or image or pdf"
+                onPress={handlePicker}
+              />
+            </View>
+          )}
+          {image && (
+            <Image
+              source={{uri: image}}
+              style={{
+                width: width - 40,
+                height: 200,
+                marginBottom: 20,
+              }}
+            />
+          )}
+          {video && (
+            <VideoPlayer
+              video={{
+                uri: video,
+              }}
+              autoplay={true}
+              videoWidth={width}
+              videoHeight={400}
+              thumbnail={{uri: 'https://i.picsum.photos/id/866/1600/900.jpg'}}
+            />
+          )}
+          {pdfLink && (
+            <View
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                height: 30,
+                backgroundColor: '#50C4ED',
+                paddingHorizontal: 20,
+                borderRadius: 7,
+              }}>
+              <Text style={{color: 'white'}}>{pdfName}</Text>
+            </View>
+          )}
+
+          <View style={{marginBottom: 10, width: width - 40, marginTop: 20}}>
+            <Text
+              style={{
+                color: '#000',
+                marginRight: 5,
+                fontFamily: 'Montserrat-Regular',
+                fontSize: 14,
+                marginBottom: 6,
+              }}>
+              Body {<Text style={{color: '#50C4ED'}}>*</Text>}
+            </Text>
+            <TextInput
+              placeholder="Enter your description..."
+              multiline={true}
+              textAlignVertical="top"
+              numberOfLines={10}
+              onChangeText={val => setBody(val)}
+              value={body}
+              placeholderTextColor="gray"
+              backgroundColor="transparent"
+              required
+              style={{
+                color: '#000',
+                fontFamily: 'Montserrat-Regular',
+                backgroundColor: 'transparent',
+                borderRadius: 12,
+                borderWidth: 1,
+                // borderColor: error ? 'red' : focused ? '#50C4ED' : '##50C4ED20',
+              }}
+            />
+          </View>
+          <ButtonPrimary
+            title="Next"
+            onPress={handleNext}
+            disabled={disabled}
+            loading={loading}
+          />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

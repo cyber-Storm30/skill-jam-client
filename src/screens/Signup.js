@@ -15,8 +15,8 @@ import Input from '../components/Input';
 import {postData} from '../services/rootService';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../redux/auth';
-// import EyeOpen from '../../../assets/eyeopen.svg';
-// import EyeClose from '../../../assets/eyeclose.svg';
+import EyeOpen from '../../assets/eyeopen.svg';
+import EyeClose from '../../assets/eyeclose.svg';
 
 const toastConfig = {
   error: props => (
@@ -170,7 +170,7 @@ const Signup = ({navigation}) => {
               value={password}
               secureTextEntry={!showPassword}
               setShowPassword={setShowPassword}
-              // icon={!showPassword ? <EyeClose /> : <EyeOpen />}
+              icon={!showPassword ? <EyeClose /> : <EyeOpen />}
               backgroundColor="transparent"
               required
             />
