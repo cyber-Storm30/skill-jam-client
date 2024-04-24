@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const BASE_URI = 'http://192.168.1.2:9001/api';
+export const BASE_URI = 'https://skill-jam-server.onrender.com/api';
+// export const BASE_URI = 'http://192.168.1.2:9001/api';
 // export const BASE_URI = 'http://192.168.29.33:9001/api';
 // export const BASE_URI = 'http://172.20.10.4:5001/api';
 
